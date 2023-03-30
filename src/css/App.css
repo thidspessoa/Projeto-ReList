@@ -1,0 +1,64 @@
+.App {
+    width: 40%;
+    margin: 2em auto; /*Centralizar*/
+    background-color: #394049;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.todo-header {
+    padding: 0.5em;
+    border-bottom: 1px solid #2C3035;
+    text-align: center;
+}
+
+.todo-header h1 {
+    margin: 0; /* Tirar margin do nosso titulo para encaixar no layout.*/
+}
+
+.forms-todo {
+    padding: 1em; /* Espaçamento interno em todo container do formulário*/
+    margin: 0 2em; /*A borda um pouco maior que o conteudo do formulário*/
+    border-bottom: 1px solid #2C3035;
+}
+
+.forms-todo h2,
+.list-todo h2 {
+    text-align: center;
+    margin-top: 0;
+}
+
+
+.forms-control {
+    display: flex;
+    flex-direction: column; /*inputLabel em cima e input em baixo.*/
+    margin-bottom: 1em; /* Afastar um input do outro*/
+}
+
+
+.forms-control label {
+    font-weight: bold;
+    font-size: .7em; /*Deixa o texto menor*/
+    margin-bottom: .4em; /*Afastar a label do input*/
+}
+
+
+.forms-control input {
+    border: 1px solid #222;
+    border-radius: 2px; /*Quebrar um pouco a borda*/ 
+    background-color: #2C3035;
+    padding: .5em;
+    color: #dfdfdf;
+}
+
+
+input[type='submit'] { /*Como personalizar o botão*/
+    background-color: #333;
+    color: #eee;
+    display: block; /*Ele preencher a largura toda*/
+    width: 100%; /*Deixar o botão bem grande */
+    border: 1px solid #222; /*borda escura em volta do input*/ 
+    border-radius: 5px;
+    padding: 1em;
+    cursor: pointer;
+}
