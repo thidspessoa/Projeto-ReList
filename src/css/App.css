@@ -62,3 +62,49 @@ input[type='submit'] { /*Como personalizar o botão*/
     padding: 1em;
     cursor: pointer;
 }
+
+.list-todo {
+    padding: 0 1em 2em;
+    margin: 1em 2em;
+}
+
+.list-todo h2 { /*Titulos*/
+    margin-bottom: 0;
+}
+
+.list-todo p { /*paragrafo de tarefas vazias*/
+    text-align: center;
+}
+
+.todo { /* Cada item individual*/
+    border-bottom: 1px solid #444;
+    padding: 1em 0;
+}
+
+
+.todo h3 {
+    margin-bottom: .5em;
+}
+
+.todo-done { /*Tarefa completa */
+    text-decoration: line-through; ;/* Corta o texto com uma linha*/
+    color: rgb(240, 98, 146);
+}
+
+
+.todo p { 
+    text-align: left;
+    font-style: italic;
+    font-size: .7em;
+    margin-bottom: 1.5em;
+}
+
+.todo svg {
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-right: 1em;
+}
+
+.todo svg:hover {
+    color: rgb(240, 98, 146);
+}

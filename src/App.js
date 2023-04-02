@@ -2,7 +2,7 @@ import './css/App.css';
 import './css/normalize.css';
 //* Importando todos os componentes e hooks que iremos usar *//
 import { useState, useEffect } from 'react'; //Hooks
-import { bsTrash, BsBookmarkCheck, BsBookmarkCheckFill } from "react-icons/bs"; //Icones
+import { bsTrash, BsBookmarkCheck, BsBookmarkCheckFill, BsTrash } from "react-icons/bs"; //Icones
 
 const API = 'http://localhost:5000'; //Isso aqui vem geralmente nos arquivos arquivos de configuração.. É basicamente o IP, a forma que vamos accessar a API.
 
@@ -73,11 +73,39 @@ function App() {
   }; {/*O E como parametro acima é o evento em si, serve para parar o formulário quando ele for enviado, a pagina não recarrega
   caso o formulário seja enviado. Pois recarregar toda vez quebra o fluxo do SPA */} 
 
+  const handleDelete = async (id) => {
+    await fetch(API + "/todos/" + id, {
+      method: "DELETE", 
+    });
+
+    {/*Para previnir o erro da segunda leitura, e atualizar a informação também no front-end, precisamos utilizar a operação abaixo. */}
+    setTodos((prevState) => prevState.filter((todo) => todo.id !==id));
+    {/*Estamos filtrando  os todos, estamos comparando o id com o id que vieo por requisição e retornando o todo caso de true. */}
+  };
+
+  const handleEdit = async(todo) => {
+
+    todo.done =  !todo.done; {/*Descompletando caso eu tenha completado a tarefa sem querer */}
+
+
+    const data = await fetch(API + "/todos/" + todo.id, {
+      method: "PUT", 
+      body: JSON.stringify(todo),
+      headers: {
+        "Content-Type": "application/json",
+      }, 
+    });
+
+    setTodos((prevState) => 
+      prevState.map((t) => (t.id === data.id ? (t = data) : t))
+    );
+  };
+
   //Não dar conflito na hora de exibir os conteudos e a mensagem que não ha conteudos. Previni exibir mensagem errada ao usuario
   if(loading){ //Checar se esta carregando
-    return <p>Carregando...</p>
+    return <p>Aguarde um momento...</p>
 
-  }
+  };
 
   return (
     <div className="App">
@@ -134,7 +162,16 @@ function App() {
         {todos.length === 0 && <p>Não há tarefas</p>} {/**Renderização condicional **/}
         {todos.map((todo) => (
           <div className='todo' key={todo.id}>
-            <p>{todo.title}</p>
+            <h3 className={todo.done ? "todo-done" : ""}>{todo.title}</h3>
+            <p>Duração: {todo.time}</p>
+            <div className='actions'>
+              <span onClick={() => handleEdit(todo)}> {/*Aqui em vez do id precisamos mandar a tarefa toda */}
+                {!todo.done ? <BsBookmarkCheck /> : <BsBookmarkCheckFill />}  {/*Checa se a tarefa já está pronta e exibe um icone.*/}
+              </span>
+              <BsTrash onClick={() => handleDelete(todo.id)} /> {/*Utilizamos aqui uma arrowFunction pois ai temos a possibilidade de executar uma função
+              com argumento.  Se colocassemos sem a arrowFunction o react iria executar o argumento assim que renderizar, mas colocando
+              com arrowFunction ela  espera o evento ocorrer..*/}
+            </div>
           </div>
         ))} {/*Preenchendo a lista de tarefas com o TODO */}        
       </div>
@@ -144,12 +181,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-//PAREI EM: 1:31:41
-
-
-function 
