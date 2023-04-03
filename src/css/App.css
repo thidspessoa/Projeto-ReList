@@ -51,6 +51,9 @@
     color: #dfdfdf;
 }
 
+.forms-control .describe {
+    height: 10em;
+}
 
 input[type='submit'] { /*Como personalizar o botão*/
     background-color: #333;
@@ -79,32 +82,56 @@ input[type='submit'] { /*Como personalizar o botão*/
 .todo { /* Cada item individual*/
     border-bottom: 1px solid #444;
     padding: 1em 0;
+    background-color: #222;
+    width: 20em;
+    margin: 2em auto;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 
 .todo h3 {
-    margin-bottom: .5em;
+    margin-bottom: .5em;   
 }
+
+.todo h6 {
+    color: rgb(0,128,128);
+}
+
 
 .todo-done { /*Tarefa completa */
     text-decoration: line-through; ;/* Corta o texto com uma linha*/
-    color: rgb(240, 98, 146);
+    color: green;
 }
 
 
 .todo p { 
-    text-align: left;
+    text-align: center;
     font-style: italic;
     font-size: .7em;
     margin-bottom: 1.5em;
 }
 
-.todo svg {
+.todo svg { /*SVG são os icones*/
     font-size: 1.2em;
     cursor: pointer;
     margin-right: 1em;
 }
 
 .todo svg:hover {
-    color: rgb(240, 98, 146);
+    /*color: rgb(240, 98, 146);*/
+    color: green;
+}
+
+
+.todo .teste:hover {
+    color: red;
+}
+
+
+.card {
+    width: 20em;
+    height: 13em;
+    background-color: gray;
 }

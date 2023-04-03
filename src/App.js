@@ -2,19 +2,20 @@ import './css/App.css';
 import './css/normalize.css';
 //* Importando todos os componentes e hooks que iremos usar *//
 import { useState, useEffect } from 'react'; //Hooks
-import { bsTrash, BsBookmarkCheck, BsBookmarkCheckFill, BsTrash } from "react-icons/bs"; //Icones
+import { bsTrash, BsBookmarkCheck, BsBookmarkCheckFill, BsTrash, BsBorder } from "react-icons/bs"; //Icones
 
 const API = 'http://localhost:5000'; //Isso aqui vem geralmente nos arquivos arquivos de configuração.. É basicamente o IP, a forma que vamos accessar a API.
 
 function App() {
   const [title, setTitle] = useState(''); //Estado para o titulo
   const [time, setTime] = useState(''); //Horario e tempo da task
-  const [todos, setTodos] = useState([]); // Estado para a kista/tarefas. Começa com uma lista vazia para poder ser inserido dados
+  const [todos, setTodos] = useState([]); // Estado para a lista/tarefas. Começa com uma lista vazia para poder ser inserido dados
   const [loading, setLoading] = useState(false); // Loading, uma forma de carregar os dados e exibir para o usuario que os dados estão sendo carregados. Antes do usuario ver a tela em branco e derrepente os dados surgirem
-
+  const [date, setDate] = useState('');
+  const [describe, setDescribe] = useState('');
 
   // Load todos on page load
-  useEffect(() => { //Função anonima com segundo argumento um array dependencias que qquando está vazil ele é executado quando a pagina carrega
+  useEffect(() => { //Função anonima com segundo argumento um array dependencias que quando está vazil ele é executado quando a pagina carrega
 
 
     const loadData =  async (e) => {
@@ -30,6 +31,7 @@ function App() {
       setLoading(false) //Definimos um setloading false dnv pq ele já terminou de carregar. Pois a função await segura o codigo ate carregar tudo, depois ele tira tudo,
       
       setTodos(res); //res são os dados que são transformados de texto json para uma array de objetos.
+
     };
 
     loadData(); /*Carrega a pagina e executa o loadData que espera os dados irem pro backEnd */
@@ -38,16 +40,18 @@ function App() {
 
   const handleSubmit = async (e) => { //Deixamos como uma função assincrona pois teremos que esperar a resposta do fatch, é uma requisição assincrona.
      e.preventDefault()
+
      
     const todo = {
       id: Math.random(), 
       title,
+      date,
       time,
+      describe,
       done: false,
     };
     /* ID: Cria um ID para o objeto, que podemos utilziar no front end. */
-    /*DONE: A tarefa entra naturalmente como falsa/não completa no sistema. Propiedade que define se ela esta ou não completa.*/
-    
+    /*DONE: A tarefa entra naturalmente como falsa/não completa no sistema. Propiedade que define se ela esta ou não completa.*/    
 
     //COMUNICAÇÃO COM A API: (PADRÃO JSON DE SE COMUNICAR)
     await fetch(API + "/todos", {
@@ -69,6 +73,8 @@ function App() {
     //Zerando os inputs
     setTitle("");
     setTime("");
+    setDate("");
+    setDescribe("");
 
   }; {/*O E como parametro acima é o evento em si, serve para parar o formulário quando ele for enviado, a pagina não recarrega
   caso o formulário seja enviado. Pois recarregar toda vez quebra o fluxo do SPA */} 
@@ -107,6 +113,8 @@ function App() {
 
   };
 
+
+
   return (
     <div className="App">
       
@@ -137,15 +145,40 @@ function App() {
           </div>
 
           <div className='forms-control'>
+          
+            <label htmlFor='describe'>Descreva sua tarefa: </label>
+            
+            <input 
+              type='text'
+              name='describe'
+              className='describe' 
+              placeholder='Descrição da tarefa...'  
+              onChange={(e) => setDescribe(e.target.value)} 
+              value={describe || ""}
+              required
+              />
+          
+          </div>
+
+          <div className='forms-control'>
            
-            <label htmlFor='time'>Duração: </label>
+            <label htmlFor='time'>Finalizar até: </label>
            
             <input 
-              type='text' 
+              type='time' 
               name='time' 
-              placeholder='Tempo em horas' 
+              placeholder='Tempo em horas (3h)' 
               onChange={(e) => setTime(e.target.value)} 
               value={time || ""}
+              required
+              />
+
+            <input 
+              type='date' 
+              name='date' 
+              placeholder='Data de entrega:' 
+              onChange={(e) => setDate(e.target.value)} 
+              value={date || ""}
               required
               />
                
@@ -155,23 +188,31 @@ function App() {
 
         </form>
 
-      </div>
+      </div> 
 
       <div className='list-todo'>
         <h2> Lista de tarefas: </h2>
         {todos.length === 0 && <p>Não há tarefas</p>} {/**Renderização condicional **/}
         {todos.map((todo) => (
+          
           <div className='todo' key={todo.id}>
             <h3 className={todo.done ? "todo-done" : ""}>{todo.title}</h3>
-            <p>Duração: {todo.time}</p>
+            <h6 className={todo.done ? "todo-done" : ""}>Deve ser finalizada até: </h6>
+            <p>{todo.date}</p>
+            <p>{todo.time}</p>
+
+            <h6 className={todo.done ? "todo-done" : ""}>Descrição: </h6>
+            <p>{todo.describe}</p>
+            
             <div className='actions'>
               <span onClick={() => handleEdit(todo)}> {/*Aqui em vez do id precisamos mandar a tarefa toda */}
                 {!todo.done ? <BsBookmarkCheck /> : <BsBookmarkCheckFill />}  {/*Checa se a tarefa já está pronta e exibe um icone.*/}
               </span>
-              <BsTrash onClick={() => handleDelete(todo.id)} /> {/*Utilizamos aqui uma arrowFunction pois ai temos a possibilidade de executar uma função
+              <BsTrash className='teste' onClick={() => handleDelete(todo.id)} /> {/*Utilizamos aqui uma arrowFunction pois ai temos a possibilidade de executar uma função
               com argumento.  Se colocassemos sem a arrowFunction o react iria executar o argumento assim que renderizar, mas colocando
               com arrowFunction ela  espera o evento ocorrer..*/}
             </div>
+          
           </div>
         ))} {/*Preenchendo a lista de tarefas com o TODO */}        
       </div>
