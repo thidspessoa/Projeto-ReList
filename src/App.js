@@ -1,8 +1,11 @@
 import './css/App.css';
 import './css/normalize.css';
+import './css/DateActive.css';
 //* Importando todos os componentes e hooks que iremos usar *//
 import { useState, useEffect } from 'react'; //Hooks
 import { bsTrash, BsBookmarkCheck, BsBookmarkCheckFill, BsTrash, BsBorder } from "react-icons/bs"; //Icones
+import Modal from 'react-modal'; //Modal de react
+import DateActive from './components/DateActive';
 
 const API = 'http://localhost:5000'; //Isso aqui vem geralmente nos arquivos arquivos de configuração.. É basicamente o IP, a forma que vamos accessar a API.
 
@@ -13,6 +16,8 @@ function App() {
   const [loading, setLoading] = useState(false); // Loading, uma forma de carregar os dados e exibir para o usuario que os dados estão sendo carregados. Antes do usuario ver a tela em branco e derrepente os dados surgirem
   const [date, setDate] = useState('');
   const [describe, setDescribe] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [filteredTodos, setFilteredTodos] = useState([]);
 
   // Load todos on page load
   useEffect(() => { //Função anonima com segundo argumento um array dependencias que quando está vazil ele é executado quando a pagina carrega
@@ -63,6 +68,7 @@ function App() {
       },
     })
 
+    
 
     //INSERIR OS DADOS NA LISTA DE FORMA AUTOMATICA SEM TER QUE DAR F5
     setTodos((prevState) => [...prevState, todo]); //PrevState é o estado anterior do item que estamos trabalhando. Então consigo adicionar um item ao estado anterior e gerar um novo estado.
@@ -78,6 +84,7 @@ function App() {
 
   }; {/*O E como parametro acima é o evento em si, serve para parar o formulário quando ele for enviado, a pagina não recarrega
   caso o formulário seja enviado. Pois recarregar toda vez quebra o fluxo do SPA */} 
+
 
   const handleDelete = async (id) => {
     await fetch(API + "/todos/" + id, {
@@ -113,7 +120,24 @@ function App() {
 
   };
 
+  const filterTodosByMonth = (month) => {
+    const filteredTodos = todos.filter(
+      (todo) => new Date(todo.date).getMonth() === month - 1
+    );
+    return filteredTodos;
+  };
 
+  const handleOpenModal = () => {
+    const month = new Date().getMonth() + 1;
+    const filteredTodos = filterTodosByMonth(month);
+    setFilteredTodos(filteredTodos);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  
 
   return (
     <div className="App">
@@ -188,6 +212,13 @@ function App() {
 
         </form>
 
+        <button onClick={handleOpenModal}>Vizualizar Tarefas do Mês Atual </button>
+        <DateActive 
+          isOpen={isModalOpen}
+          onRequestClose={handleCloseModal}
+          filteredTodos={filteredTodos}
+        />
+
       </div> 
 
       <div className='list-todo'>
@@ -200,9 +231,10 @@ function App() {
             <h6 className={todo.done ? "todo-done" : ""}>Deve ser finalizada até: </h6>
             <p>{todo.date}</p>
             <p>{todo.time}</p>
+            
 
             <h6 className={todo.done ? "todo-done" : ""}>Descrição: </h6>
-            <p>{todo.describe}</p>
+            <p className='pDesc'>{todo.describe}</p>
             
             <div className='actions'>
               <span onClick={() => handleEdit(todo)}> {/*Aqui em vez do id precisamos mandar a tarefa toda */}
@@ -214,7 +246,8 @@ function App() {
             </div>
           
           </div>
-        ))} {/*Preenchendo a lista de tarefas com o TODO */}        
+        ))} {/*Preenchendo a lista de tarefas com o TODO */}   
+
       </div>
 
     </div>

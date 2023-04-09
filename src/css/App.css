@@ -64,6 +64,7 @@ input[type='submit'] { /*Como personalizar o botão*/
     border-radius: 5px;
     padding: 1em;
     cursor: pointer;
+    margin-bottom: 1.4em;
 }
 
 .list-todo {
@@ -112,6 +113,12 @@ input[type='submit'] { /*Como personalizar o botão*/
     font-size: .7em;
     margin-bottom: 1.5em;
 }
+
+.pDesc {
+    display: block;
+    word-break: break-word;
+    padding: 0 5px;
+} 
 
 .todo svg { /*SVG são os icones*/
     font-size: 1.2em;

@@ -1,0 +1,66 @@
+.modal {
+    position: absolute;
+    top: 5%;
+    left: 25%;
+    right: 25%;
+    bottom: 5%;
+    border: 1px solid #222;
+    background-color: #394049;
+    color: #eee;
+    border-radius: 30px;
+    padding: 20px;
+    
+}
+
+.overflow {
+  overflow:auto;
+  height: 25em;
+  background-color: #2C3035;
+}
+
+.listTitle {
+  background-color: #333;
+  color: #eee;
+  display: block; /*Ele preencher a largura toda*/
+  width: 100%; /*Deixar o botão bem grande */
+  border: 1px solid #222; /*borda escura em volta do input*/ 
+  border-radius: 5px;
+  padding: 1em;
+  margin: 1.4em -3%;
+  
+}
+  
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(2, 2, 2, 0.8);
+}
+
+button {
+    background-color: #333;
+    color: #eee;
+    display: block; /*Ele preencher a largura toda*/
+    width: 100%; /*Deixar o botão bem grande */
+    border: 1px solid #222; /*borda escura em volta do input*/ 
+    border-radius: 5px;
+    padding: 1em;
+    cursor: pointer;
+}
+
+/*Transições*/
+
+.ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
+  }
+  
+  .ReactModal__Overlay--after-open{
+    opacity: 1;
+  }
+  
+  .ReactModal__Overlay--before-close{
+    opacity: 0;
+  }
