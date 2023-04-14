@@ -217,6 +217,7 @@ function App() {
           isOpen={isModalOpen}
           onRequestClose={handleCloseModal}
           filteredTodos={filteredTodos}
+          setTodos={setTodos}
         />
 
       </div> 

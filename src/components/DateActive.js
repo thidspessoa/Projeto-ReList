@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // Importa a modal do react-modal
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
@@ -7,7 +7,7 @@ import '../css/DateActive.css';
 // Código necessário para os recursos de acessibilidade
 Modal.setAppElement('#root');
 
-function DateActive({ isOpen, onRequestClose, filteredTodos }) {
+function DateActive({ isOpen, onRequestClose, filteredTodos, setTodos }) {
 
   const monthNow = () => {
     const month = new Date().getMonth() + 1;
@@ -57,6 +57,18 @@ function DateActive({ isOpen, onRequestClose, filteredTodos }) {
     };
   }
 
+  const handleFilter = (filterStatus) => {
+
+    if (filterStatus === 'concluida') {
+      setTodos(filteredTodos.filter(todo => todo.done));
+
+    } else if (filterStatus === 'todas') {
+      setTodos(filteredTodos.filter(todo => !todo.done));
+    }
+  }
+
+  console.log(setTodos)
+
   // Código JSX necessário para criar uma modal simples que abre e fecha
   return (
     <div>
@@ -73,6 +85,12 @@ function DateActive({ isOpen, onRequestClose, filteredTodos }) {
         <div className='list-todo'>
           <div className='listTitle'>
             <h2>Olá, essas são suas tarefas de {monthNow()} </h2>
+          </div>
+
+          <div>
+            <button onClick={() => handleFilter('concluidas')}>Concluidas</button>
+            <button onClick={() => handleFilter('todas')}>Todas</button>
+            
           </div>
     
           <div className='overflow'>
