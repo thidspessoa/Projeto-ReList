@@ -208,11 +208,11 @@ function App() {
                
           </div>
 
-          <input type="submit" value="Criar task" />
+          <input className='buttonMd1' type="submit" value="Criar Tarefa" />
 
         </form>
 
-        <button onClick={handleOpenModal}>Vizualizar Tarefas do Mês Atual </button>
+        <input className='buttonMd2' type="submit" value="Tarefas do Mês Atual" onClick={handleOpenModal} />
         <DateActive 
           isOpen={isModalOpen}
           onRequestClose={handleCloseModal}

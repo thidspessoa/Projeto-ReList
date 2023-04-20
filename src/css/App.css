@@ -55,16 +55,32 @@
     height: 10em;
 }
 
-input[type='submit'] { /*Como personalizar o botão*/
-    background-color: #333;
+.buttonMd1 { /*Como personalizar o botão*/
+    background-color: #2E8B57;
     color: #eee;
     display: block; /*Ele preencher a largura toda*/
-    width: 100%; /*Deixar o botão bem grande */
+    width: 50%; /*Deixar o botão bem grande */
     border: 1px solid #222; /*borda escura em volta do input*/ 
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 1em;
     cursor: pointer;
-    margin-bottom: 1.4em;
+    margin: 2em auto; /*Centralizar*/
+    font-weight: bold;
+
+}
+
+
+.buttonMd2 { /*Como personalizar o botão*/
+    background-color: ;
+    display: block; /*Ele preencher a largura toda*/
+    width: 50%; /*Deixar o botão bem grande */
+    border: 1px solid #222; /*borda escura em volta do input*/ 
+    border-radius: 10px;
+    padding: 1em;
+    cursor: pointer;
+    margin: 2em auto; /*Centralizar*/
+    font-weight: bold;
+
 }
 
 .list-todo {

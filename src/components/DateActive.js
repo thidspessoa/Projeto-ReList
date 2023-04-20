@@ -95,10 +95,11 @@ function DateActive({ isOpen, onRequestClose, filteredTodos }) {
             <h2>Olá, essas são suas tarefas de {monthNow()} </h2>
           </div>
 
-          <div>
-            <button onClick={() => handleFilter('concluidas')}>Concluidas</button>
-            <button onClick={() => handleFilter('todas')}>Todas</button>
-            <button onClick={() => handleFilter('pendentes')}>Pendentes</button>
+          <div id='filterSearch'>
+            
+            <button id='bt1' onClick={() => handleFilter('concluidas')}>Concluidas</button>
+            <button id='bt2' onClick={() => handleFilter('todas')}>Todas</button>
+            <button id='bt3' onClick={() => handleFilter('pendentes')}>Pendentes</button>
             
           </div>
     
@@ -127,3 +128,4 @@ DateActive.propTypes = { //Definimos o tipo da propiedade/parametro que nosso co
   filteredTodos: PropTypes.array.isRequired,
 };
 export default DateActive;
+

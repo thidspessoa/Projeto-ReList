@@ -14,15 +14,16 @@
 
 .overflow {
   overflow:auto;
-  height: 25em;
+  height: auto;
   background-color: #2C3035;
+  max-height: 40em;
 }
 
 .listTitle {
   background-color: #333;
   color: #eee;
   display: block; /*Ele preencher a largura toda*/
-  width: 100%; /*Deixar o botão bem grande */
+  width: auto; /*Deixar o botão bem grande */
   border: 1px solid #222; /*borda escura em volta do input*/ 
   border-radius: 5px;
   padding: 1em;
@@ -39,15 +40,26 @@
     background-color: rgba(2, 2, 2, 0.8);
 }
 
+#filterSearch {
+  /* border: 1px solid red; */
+  width: 400px;
+  height: auto;
+  margin: 0.5em auto; /*Centralizar*/
+  
+}
+
+
 button {
-    background-color: #333;
+    background-color: rgb(40, 115, 155);
     color: #eee;
-    display: block; /*Ele preencher a largura toda*/
-    width: 100%; /*Deixar o botão bem grande */
+    /* display: block; Ele preencher a largura toda */
+    /* width: 100%; Deixar o botão bem grande */
     border: 1px solid #222; /*borda escura em volta do input*/ 
     border-radius: 5px;
     padding: 1em;
+    margin: 10px;
     cursor: pointer;
+    font-weight: bold;
 }
 
 /*Transições*/
