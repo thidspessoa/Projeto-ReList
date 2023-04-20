@@ -143,7 +143,7 @@ function App() {
     <div className="App">
       
       <div className='todo-header'>
-        <h1>React Todo</h1>
+        <h1>ReList</h1>
       </div>
       
       <div className='forms-todo'>
@@ -217,7 +217,6 @@ function App() {
           isOpen={isModalOpen}
           onRequestClose={handleCloseModal}
           filteredTodos={filteredTodos}
-          setTodos={setTodos}
         />
 
       </div> 

@@ -7,7 +7,9 @@ import '../css/DateActive.css';
 // Código necessário para os recursos de acessibilidade
 Modal.setAppElement('#root');
 
-function DateActive({ isOpen, onRequestClose, filteredTodos, setTodos }) {
+function DateActive({ isOpen, onRequestClose, filteredTodos }) {
+
+  const [ todos, setTodos ] = useState(filteredTodos);
 
   const monthNow = () => {
     const month = new Date().getMonth() + 1;
@@ -59,15 +61,21 @@ function DateActive({ isOpen, onRequestClose, filteredTodos, setTodos }) {
 
   const handleFilter = (filterStatus) => {
 
-    if (filterStatus === 'concluida') {
+    if (filterStatus === 'concluidas') {
+      console.log(filteredTodos);
+      console.log(filteredTodos.filter(todo => todo.done));
       setTodos(filteredTodos.filter(todo => todo.done));
 
     } else if (filterStatus === 'todas') {
+      console.log('oi');
+      setTodos(filteredTodos);
+    } else if (filterStatus === 'pendentes') {
+      console.log('Passou')
       setTodos(filteredTodos.filter(todo => !todo.done));
     }
   }
 
-  console.log(setTodos)
+  //console.log(setTodos)
 
   // Código JSX necessário para criar uma modal simples que abre e fecha
   return (
@@ -90,11 +98,12 @@ function DateActive({ isOpen, onRequestClose, filteredTodos, setTodos }) {
           <div>
             <button onClick={() => handleFilter('concluidas')}>Concluidas</button>
             <button onClick={() => handleFilter('todas')}>Todas</button>
+            <button onClick={() => handleFilter('pendentes')}>Pendentes</button>
             
           </div>
     
           <div className='overflow'>
-            {filteredTodos.map((todo) => (
+            {todos.map((todo) => (
               <div className='todo' key={todo.id}>
                 <h3 className={todo.done ? "todo-done" : ""}>{todo.title}</h3>
                 <h6 className={todo.done ? "todo-done" : ""}>Deve ser finalizada até: </h6>
